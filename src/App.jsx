@@ -422,7 +422,7 @@ function App() {
           Developed by{' '}
           <a
             className="dev-credit-link"
-            href="https://dev-p-portfolio-v1.vercel.app"
+            href="https://dev-p-portfolio-v2.vercel.app"
             target="_blank"
             rel="noreferrer"
           >
