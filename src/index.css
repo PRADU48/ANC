@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --c-bg: #eefaf7;
+  --c-white: #ffffff;
+  --c-navy: #07324e;
+  --c-slate: #39566a;
+  --c-teal: #0d9488;
+  --c-teal-deep: #0f766e;
+  --c-border: #cae6e0;
+  --c-border-strong: #8dc8bf;
+
+  --font-base: 'Source Sans 3', 'Segoe UI', sans-serif;
+  --font-heading: 'Outfit', 'Trebuchet MS', sans-serif;
+
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 20px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+
+  font-family: var(--font-base);
+  font-size: 17px;
+  line-height: 1.62;
+  color: var(--c-slate);
+  background: radial-gradient(circle at 12% 8%, #f9fffe 0%, #eefaf7 46%, #e8f6f2 100%);
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  max-width: 1140px;
+  margin: 0 auto;
+  min-height: 100vh;
+  border-left: 1px solid var(--c-border);
+  border-right: 1px solid var(--c-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(248, 255, 253, 0.94));
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+  color: var(--c-navy);
+  font-family: var(--font-heading);
+}
+
+h1 {
+  font-size: clamp(2rem, 3.8vw, 3.4rem);
+  margin-bottom: 14px;
+}
+
+h2 {
+  font-size: clamp(1.3rem, 2.2vw, 2.1rem);
+  margin-bottom: 12px;
+}
+
+p {
+  margin: 0;
+}
+
+li {
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+}
