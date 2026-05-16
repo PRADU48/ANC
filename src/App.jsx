@@ -1,103 +1,87 @@
 import { useState } from 'react'
 import './App.css'
 
-const NAV_ITEMS = ['Home', 'About Us', 'Services', 'Contact/Location']
+const NAV_ITEMS = ['Home', 'About Us', 'Services', 'Contact']
 
-const quickHighlights = [
+const clinicHighlights = [
   {
-    title: 'Open Daily',
-    value: '7:00 AM - 12:00 AM',
-    note: 'Monday to Sunday',
+    title: 'Hours',
+    value: 'Mon-Sat 10:00 AM - 7:30 PM',
+    note: 'Closed Sunday',
   },
   {
-    title: 'Phone Support',
-    value: '+91 77951 97139',
-    note: 'Fast response for medicine availability',
+    title: 'Phone',
+    value: '+91 75880 70131',
+    note: 'Appointment calls',
   },
   {
-    title: 'Trusted Area',
-    value: 'Shivaganga Nagar',
-    note: 'Serving nearby Solapur neighborhoods',
+    title: 'Location',
+    value: 'Budhavar Peth, Solapur',
+    note: 'Near Sonya Maruti',
   },
 ]
 
-const homeFeatures = [
-  'Prescription medicine fulfillment',
-  'Chronic care refill continuity',
-  'Health and wellness essentials',
-  'Late-night medicine support',
-  'Offline store not online!',
+const homePromises = [
+  'Stroke care',
+  'Migraine care',
+  'Neurology tests',
+  'Follow-up care',
 ]
 
-const values = [
+const doctors = [
   {
-    title: 'Clarity First',
-    text: 'Simple and patient-friendly guidance for medicine timing, dosage, and continuity.',
+    name: 'Dr. Ashish Giridhari Bhutada',
+    role: 'Consultant Neurologist',
+    note: 'DM Neurology, Grant Medical College and Sir JJ Hospital, Mumbai.',
+    extra: 'Focus: stroke, headache, and emergency neurology.',
+    initials: 'AB',
+    portrait:
+      'data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 640 640%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%25%22 stop-color=%22%23d9f5ef%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%23eaf3ff%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%22640%22 height=%22640%22 rx=%2232%22 fill=%22url(%23g)%22/%3E%3Cellipse cx=%22320%22 cy=%22390%22 rx=%22140%22 ry=%22160%22 fill=%22%230f766e%22 fill-opacity=%220.16%22/%3E%3Ccircle cx=%22320%22 cy=%22268%22 r=%2290%22 fill=%22%230f766e%22 fill-opacity=%220.18%22/%3E%3Cpath d=%22M210 500c22-66 75-104 110-104s88 38 110 104%22 fill=%22%230f766e%22 fill-opacity=%220.2%22/%3E%3Ctext x=%22320%22 y=%22582%22 text-anchor=%22middle%22 font-family=%22Arial, sans-serif%22 font-size=%2252%22 font-weight=%22700%22 fill=%22%2307324e%22%3EAB%3C/text%3E%3C/svg%3E',
   },
   {
-    title: 'Continuity of Care',
-    text: 'Support for long-term treatment plans, including diabetes and thyroid routines.',
-  },
-  {
-    title: 'Local Reliability',
-    text: 'Dependable neighborhood service with consistent medicine access till midnight.',
+    name: 'Dr. Poonam Bhutada',
+    role: 'Consulting Doctor',
+    note: 'Patient-focused care and clear guidance.',
+    extra: 'Focus: follow-up care, patient support, and family guidance.',
+    initials: 'PB',
+    portrait:
+      'data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 640 640%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%25%22 stop-color=%22%23f0f8ff%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%23e8fbf7%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%22640%22 height=%22640%22 rx=%2232%22 fill=%22url(%23g)%22/%3E%3Cellipse cx=%22320%22 cy=%22392%22 rx=%22140%22 ry=%22160%22 fill=%22%230b5d84%22 fill-opacity=%220.14%22/%3E%3Ccircle cx=%22320%22 cy=%22266%22 r=%2290%22 fill=%22%230b5d84%22 fill-opacity=%220.18%22/%3E%3Cpath d=%22M210 500c22-66 75-104 110-104s88 38 110 104%22 fill=%22%230b5d84%22 fill-opacity=%220.18%22/%3E%3Ctext x=%22320%22 y=%22582%22 text-anchor=%22middle%22 font-family=%22Arial, sans-serif%22 font-size=%2252%22 font-weight=%22700%22 fill=%22%2307324e%22%3EPB%3C/text%3E%3C/svg%3E',
   },
 ]
 
 const services = [
   {
-    title: 'Prescription Fulfillment',
-    description: 'Accurate dispensing for prescribed medicines with practical usage guidance.',
+    title: 'Stroke & Emergencies',
+    description: 'Urgent neurological evaluation.',
   },
   {
-    title: 'Diabetes Medicine Support',
-    description: 'Ongoing support for glucose management-related medicine requirements.',
+    title: 'Migraine & Headache',
+    description: 'Care for recurring headache symptoms.',
   },
   {
-    title: 'Thyroid & BP Care Supplies',
-    description: 'Reliable support for thyroid and hypertension treatment medications.',
+    title: 'Dementia & Memory',
+    description: 'Assessment for memory and cognition.',
   },
   {
-    title: 'General Family Wellness',
-    description: 'Daily healthcare essentials including hygiene, OTC, and recovery products.',
-  },
-  {
-    title: 'Refill and Repeat Support',
-    description: 'Monthly refill continuity for patients on long-term medication plans.',
-  },
-  {
-    title: 'Late-Hour Access',
-    description: 'Extended store availability for urgent evening and night medicine needs.',
+    title: 'Movement Disorders',
+    description: 'Support for tremor and stiffness.',
   },
 ]
 
-const processSteps = [
-  {
-    title: 'Share Prescription',
-    desc: 'Visit the store or call to verify medicine availability and alternatives.',
-  },
-  {
-    title: 'Pharmacist Review',
-    desc: 'Medicine details and quantities are checked for safe, correct dispensing.',
-  },
-  {
-    title: 'Quick Collection',
-    desc: 'Collect medicines with usage guidance and refill support for continuity.',
-  },
-]
+const investigationTags = ['EEG', 'NCV / EMG', 'VEP', 'BAEP']
 
-const faqs = [
+const contactPoints = [
   {
-    q: 'Are you open on Sundays?',
-    a: 'Yes. The store operates every day from 7:00 AM to 12:00 AM.',
+    label: 'Address',
+    value: 'Yasharang Apartment, Budhavar Peth, Solapur',
   },
   {
-    q: 'Do you support chronic condition medicines?',
-    a: 'Yes. We support regular medicine requirements for diabetes, thyroid, and hypertension.',
+    label: 'Landmark',
+    value: 'Near Unique Hospital',
   },
   {
-    q: 'How can I reach your location quickly?',
-    a: 'Use the Google Maps link on this page for direct turn-by-turn navigation.',
+    label: 'Hours',
+    value: 'Mon-Sat 10:00 AM - 7:30 PM',
   },
 ]
 
@@ -119,11 +103,11 @@ function PageHeader({ activePage, onNavigate }) {
             <span className="logo-plus"></span>
           </div>
           <p className="brand-title">
-            <span className="brand-title-full">Medidar Medical & General Stores</span>
-            <span className="brand-title-mobile">Medidar Medical</span>
+            <span className="brand-title-full">Aaryan Neurology Clinic</span>
+            <span className="brand-title-mobile">Aaryan Neurology Clinic</span>
           </p>
         </div>
-        <p className="brand-subtitle">Nagendra Nagar, Shivaganga Nagar, Solapur</p>
+        <p className="brand-subtitle">Budhavar Peth, Solapur | Consultant Neurology Care</p>
       </div>
 
       <button
@@ -150,8 +134,8 @@ function PageHeader({ activePage, onNavigate }) {
         ))}
       </nav>
 
-      <a className="call-pill" href="tel:+917795197139">
-        Call: +91 77951 97139
+      <a className="call-pill" href="tel:+917588070131">
+        Book: +91 75880 70131
       </a>
     </header>
   )
@@ -162,19 +146,19 @@ function HomePage() {
     <section className="page home-page" aria-labelledby="home-title">
       <div className="hero-block animate-in">
         <div className="hero-glow" aria-hidden="true"></div>
-        <p className="eyebrow">Modern Pharmacy Care in Solapur</p>
-        <h1 id="home-title">Trusted Medicines, Better Guidance, and Fast Access till Midnight</h1>
+        <p className="eyebrow">Neurology Care in Solapur</p>
+        <h1 id="home-title">Neurology care with calm, clear guidance</h1>
         <p>
-          Medidar Medical & General Stores supports families with dependable medicine access,
-          chronic treatment continuity, and patient-first pharmacy guidance every day.
+          Aaryan Neurology Clinic provides specialist consultation for common neurological
+          concerns.
         </p>
         <div className="hero-actions">
-          <a className="btn btn-primary" href="tel:+917795197139">
-            Call Pharmacy
+          <a className="btn btn-primary" href="tel:+917588070131">
+            Book an Appointment
           </a>
           <a
             className="btn btn-outline"
-            href="https://maps.google.com/?q=Nagendra+Nagar+Shivaganga+Nagar+Solapur+413003"
+            href="https://maps.google.com/?q=Ground+Floor,+Yasharang+Apartment,+near+Sonya+Maruti,+Shinde+Wada,+Budhavar+Peth,+Solapur,+Maharashtra+413007"
             target="_blank"
             rel="noreferrer"
           >
@@ -182,7 +166,7 @@ function HomePage() {
           </a>
         </div>
         <div className="feature-tags" aria-label="Quick services">
-          {homeFeatures.map((item) => (
+          {homePromises.map((item) => (
             <span key={item} className="feature-tag">
               {item}
             </span>
@@ -190,8 +174,8 @@ function HomePage() {
         </div>
       </div>
 
-      <div className="stats-grid animate-in stagger-1" aria-label="Store highlights">
-        {quickHighlights.map((item) => (
+      <div className="stats-grid animate-in stagger-1" aria-label="Clinic highlights">
+        {clinicHighlights.map((item) => (
           <article key={item.title} className="stat-card">
             <h2>{item.title}</h2>
             <p>{item.value}</p>
@@ -201,21 +185,10 @@ function HomePage() {
       </div>
 
       <div className="split-grid">
-        <article className="panel premium-panel animate-in stagger-2">
-          <h2>Why Local Families Prefer Medidar</h2>
-          <ul className="list-clean">
-            <li>Consistent stock support for routine and long-term prescriptions.</li>
-            <li>Patient-friendly medicine communication and refill reminders.</li>
-            <li>Smooth access during evening and late-night urgent needs.</li>
-          </ul>
-        </article>
-
-        <article className="panel trust-panel animate-in stagger-3">
-          <h2>Connected Healthcare Ecosystem</h2>
-          <p>
-            The Medidar name is associated with specialized diabetes and thyroid care support in
-            Solapur, strengthening confidence for chronic care patients.
-          </p>
+        <article className="panel trust-panel animate-in stagger-2 split-wide">
+          <h2>Consultant Team</h2>
+          <p>Dr. Ashish Giridhari Bhutada</p>
+          <p>Dr. Poonam Bhutada</p>
         </article>
       </div>
     </section>
@@ -223,51 +196,39 @@ function HomePage() {
 }
 
 function AboutPage() {
-  const milestones = [
-    'Community-first pharmacy operations in Shivaganga Nagar.',
-    'Built around dependable medicine access for chronic care patients.',
-    'Aligned with specialized care context including diabetes and thyroid support.',
-  ]
-
   return (
     <section className="page about-page" aria-labelledby="about-title">
       <div className="section-head animate-in">
         <p className="eyebrow">About Us</p>
-        <h1 id="about-title">Professional Pharmacy Support with a Patient-First Approach</h1>
+        <h1 id="about-title">Specialist Neurology Care Grounded in Experience and Reassurance</h1>
       </div>
 
       <div className="two-column">
         <article className="panel animate-in stagger-1">
-          <h2>Who We Serve</h2>
+          <h2>Our Clinic</h2>
           <p>
-            We serve daily medicine and wellness needs for individuals, families, and senior
-            citizens in Solapur, with a special emphasis on long-term care continuity.
+            We handle consultations and follow-up care for neurological concerns.
           </p>
         </article>
 
         <article className="panel animate-in stagger-2">
-          <h2>Clinical Context</h2>
+          <h2>Our Approach</h2>
           <p>
-            Medidar is known across Solapur not only for pharmacy services but also in association
-            with diabetes and thyroid-focused treatment support through affiliated care pathways.
+            The focus is on simple explanations and patient support.
           </p>
         </article>
       </div>
 
-      <article className="panel timeline-panel animate-in stagger-2">
-        <h2>Our Care Journey</h2>
-        <ol className="timeline-list">
-          {milestones.map((step) => (
-            <li key={step}>{step}</li>
-          ))}
-        </ol>
-      </article>
-
-      <div className="value-grid animate-in stagger-3">
-        {values.map((item) => (
-          <article key={item.title} className="value-card">
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
+      <div className="value-grid about-doctors animate-in stagger-3">
+        {doctors.map((doctor) => (
+          <article key={doctor.name} className="value-card">
+            <div className="doctor-photo-frame">
+              <img className="doctor-photo" src={doctor.portrait} alt={`${doctor.name} profile`} />
+            </div>
+            <h3>{doctor.name}</h3>
+            <p>{doctor.role}</p>
+            <span>{doctor.note}</span>
+            <span>{doctor.extra}</span>
           </article>
         ))}
       </div>
@@ -276,13 +237,11 @@ function AboutPage() {
 }
 
 function ServicesPage() {
-  const categories = ['Diabetes Care', 'Thyroid Care', 'BP & Cardiac Care', 'Wellness', 'Ortho', 'Baby Care']
-
   return (
     <section className="page services-page" aria-labelledby="services-title">
       <div className="section-head animate-in">
         <p className="eyebrow">Services</p>
-        <h1 id="services-title">Detailed Services Designed for Daily and Long-Term Medication Needs</h1>
+        <h1 id="services-title">Key neurology services</h1>
       </div>
 
       <div className="service-grid">
@@ -300,62 +259,57 @@ function ServicesPage() {
 
       <div className="split-grid services-extra">
         <article className="panel animate-in stagger-2">
-          <h2>How Service Works</h2>
-          <div className="process-grid">
-            {processSteps.map((item) => (
-              <div key={item.title} className="process-card">
-                <h3>{item.title}</h3>
-                <p>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article className="panel animate-in stagger-3">
-          <h2>Popular Product Categories</h2>
+          <h2>Specialized Investigations</h2>
           <div className="chip-cloud">
-            {categories.map((item) => (
+            {investigationTags.map((item) => (
               <span key={item} className="chip">
                 {item}
               </span>
             ))}
           </div>
         </article>
+
+        <article className="panel animate-in stagger-3">
+          <h2>Common Conditions Addressed</h2>
+          <ul className="list-clean">
+            <li>Stroke</li>
+            <li>Migraine</li>
+            <li>Memory concerns</li>
+            <li>Movement disorders</li>
+          </ul>
+        </article>
       </div>
     </section>
   )
 }
 
-function ContactLocationPage() {
+function ContactPage() {
   return (
     <section className="page contact-page" aria-labelledby="contact-title">
       <div className="section-head animate-in">
-        <p className="eyebrow">Contact & Location</p>
-        <h1 id="contact-title">Reach Us Fast for Medicines, Refills, and Navigation</h1>
+        <p className="eyebrow">Contact & Accessibility</p>
+        <h1 id="contact-title">Contact the clinic</h1>
       </div>
 
       <div className="contact-layout">
         <article className="panel animate-in stagger-1">
-          <h2>Store Address</h2>
-          <p>Nagendra Nagar, Shivaganga Nagar, Solapur, Maharashtra 413003</p>
-
-          <h2 className="sub">Phone</h2>
-          <p>
-            <a className="text-link" href="tel:+917795197139">
-              +91 77951 97139
-            </a>
-          </p>
-
-          <h2 className="sub">Operating Hours</h2>
-          <p>Monday - Sunday: 7:00 AM - 12:00 AM (Midnight)</p>
+          <h2>Contact Information</h2>
+          <div className="contact-stack">
+            {contactPoints.map((item) => (
+              <div key={item.label} className="contact-detail">
+                <h3>{item.label}</h3>
+                <p>{item.value}</p>
+              </div>
+            ))}
+          </div>
 
           <div className="hero-actions">
-            <a className="btn btn-primary" href="tel:+917795197139">
+            <a className="btn btn-primary" href="tel:+917588070131">
               Click to Call
             </a>
             <a
               className="btn btn-outline"
-              href="https://maps.google.com/?q=Nagendra+Nagar+Shivaganga+Nagar+Solapur+413003"
+              href="https://maps.google.com/?q=Ground+Floor,+Yasharang+Apartment,+near+Sonya+Maruti,+Shinde+Wada,+Budhavar+Peth,+Solapur,+Maharashtra+413007"
               target="_blank"
               rel="noreferrer"
             >
@@ -364,37 +318,7 @@ function ContactLocationPage() {
           </div>
         </article>
 
-        <article className="panel map-panel animate-in stagger-2">
-          <h2>Travel Assist</h2>
-          <p>
-            Use the map link to navigate directly. For urgent prescriptions, call first to confirm
-            availability before reaching the store.
-          </p>
-          <div className="map-card">
-            <p>Medidar Medical & General Stores</p>
-            <a
-              className="text-link"
-              href="https://maps.google.com/?q=Nagendra+Nagar+Shivaganga+Nagar+Solapur+413003"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Tap to navigate now
-            </a>
-          </div>
-        </article>
       </div>
-
-      <article className="panel faq-panel animate-in stagger-3">
-        <h2>Frequently Asked Questions</h2>
-        <div className="faq-grid">
-          {faqs.map((item) => (
-            <div key={item.q} className="faq-item">
-              <h3>{item.q}</h3>
-              <p>{item.a}</p>
-            </div>
-          ))}
-        </div>
-      </article>
     </section>
   )
 }
@@ -407,7 +331,7 @@ function App() {
     Home: <HomePage />,
     'About Us': <AboutPage />,
     Services: <ServicesPage />,
-    'Contact/Location': <ContactLocationPage />,
+    Contact: <ContactPage />,
   }
 
   return (
@@ -416,7 +340,7 @@ function App() {
       <main>{pageView[activePage]}</main>
       <footer className="site-footer">
         <p className="footer-copyright">
-          Copyright &copy; {currentYear} Medidar Medical. All rights reserved.
+          Copyright &copy; {currentYear} Aaryan Neurology Clinic. All rights reserved.
         </p>
         <p className="dev-credit">
           Developed by{' '}
@@ -426,7 +350,7 @@ function App() {
             target="_blank"
             rel="noreferrer"
           >
-            Pradyumna Pawar
+            Pradhumn Pawar
           </a>
         </p>
       </footer>
