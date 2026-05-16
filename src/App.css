@@ -172,6 +172,14 @@
   color: var(--c-navy);
 }
 
+.nav-link:focus-visible,
+.mobile-menu-toggle:focus-visible,
+.call-pill:focus-visible,
+.btn:focus-visible,
+.dev-credit-link:focus-visible {
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.18);
+}
+
 .nav-link.active {
   background: linear-gradient(120deg, #daf7f1, #edf8ff);
   color: var(--c-navy);
@@ -456,6 +464,10 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.doctor-photo:focus-visible {
+  outline: none;
 }
 
 .about-doctors h3 {

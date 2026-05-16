@@ -127,6 +127,7 @@ function PageHeader({ activePage, onNavigate }) {
             key={item}
             type="button"
             className={`nav-link ${activePage === item ? 'active' : ''}`}
+            aria-current={activePage === item ? 'page' : undefined}
             onClick={() => handleNavigate(item)}
           >
             {item}
@@ -160,7 +161,7 @@ function HomePage() {
             className="btn btn-outline"
             href="https://maps.google.com/?q=Ground+Floor,+Yasharang+Apartment,+near+Sonya+Maruti,+Shinde+Wada,+Budhavar+Peth,+Solapur,+Maharashtra+413007"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             Get Directions
           </a>
@@ -223,7 +224,13 @@ function AboutPage() {
         {doctors.map((doctor) => (
           <article key={doctor.name} className="value-card">
             <div className="doctor-photo-frame">
-              <img className="doctor-photo" src={doctor.portrait} alt={`${doctor.name} profile`} />
+              <img
+                className="doctor-photo"
+                src={doctor.portrait}
+                alt={`Illustrated portrait of ${doctor.name}`}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <h3>{doctor.name}</h3>
             <p>{doctor.role}</p>
@@ -311,7 +318,7 @@ function ContactPage() {
               className="btn btn-outline"
               href="https://maps.google.com/?q=Ground+Floor,+Yasharang+Apartment,+near+Sonya+Maruti,+Shinde+Wada,+Budhavar+Peth,+Solapur,+Maharashtra+413007"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Open Google Maps
             </a>
@@ -336,8 +343,11 @@ function App() {
 
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       <PageHeader activePage={activePage} onNavigate={setActivePage} />
-      <main>{pageView[activePage]}</main>
+      <main id="main-content">{pageView[activePage]}</main>
       <footer className="site-footer">
         <p className="footer-copyright">
           Copyright &copy; {currentYear} Aaryan Neurology Clinic. All rights reserved.
@@ -348,7 +358,7 @@ function App() {
             className="dev-credit-link"
             href="https://dev-p-portfolio-v2.vercel.app"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             Pradhumn Pawar
           </a>
