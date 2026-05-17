@@ -66,7 +66,7 @@ export const investigationTags = ['EEG', 'NCV / EMG', 'VEP', 'BAEP']
 export const contactPoints = [
   {
     label: 'Address',
-    value: 'Yasharang Apartment, Budhavar Peth, Solapur',
+    value: 'Ground Floor, Yasharang Apartment, near Sonya Maruti, Shinde Wada, Budhavar Peth, Solapur, Maharashtra 413007',
   },
   {
     label: 'Landmark',

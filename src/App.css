@@ -577,6 +577,11 @@
   margin-bottom: var(--space-2);
 }
 
+.contact-stack .contact-detail h3,
+.contact-stack .contact-detail p {
+  margin: 0;
+}
+
 .map-panel {
   background: linear-gradient(140deg, #f4fffd, #f4fbff);
 }
